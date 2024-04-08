@@ -2,7 +2,7 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export const Textfield = () => {
+export const Textfield = ({label}) => {
 
   return (
       <Box
@@ -13,7 +13,7 @@ export const Textfield = () => {
           noValidate
           autoComplete="off"
       >
-          <TextField id="outlined-basic" label="Destination" variant="outlined" sx={{background:"white"}} data-testid="texfield"/>
+          <TextField id="outlined-basic" label={label} variant="outlined" sx={{background:"white"}} data-testid="texfield"/>
        </Box>
     
   )
