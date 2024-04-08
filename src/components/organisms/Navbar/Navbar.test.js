@@ -5,7 +5,7 @@ import '@testing-library/jest-dom'
 
 jest.mock('../../assets/Logo/logo.png', () => 'logo-image');
 
-test('renders user icon', () => {
+test('renders navbar', () => {
   const { getByTestId } = render(<Navbar/>);
   const navbar = getByTestId('navbar');
   const cart = getByTestId('LocalMallIcon'); 
