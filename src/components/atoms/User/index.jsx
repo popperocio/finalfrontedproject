@@ -3,6 +3,6 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export const User = () => {
   return (
-    <AccountCircleIcon fontSize="large" sx={{ color: "black "}} data-testid="user-icon"/>
+    <AccountCircleIcon fontSize="large" sx={{ color: "white "}} data-testid="user-icon"/>
   )
 }

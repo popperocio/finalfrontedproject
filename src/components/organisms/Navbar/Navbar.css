@@ -1,0 +1,11 @@
+.NavbarContainer {
+    display: flex;
+    background: linear-gradient(to right, rgb(64, 39, 67), rgb(118, 29, 186));
+    padding: 15px;
+    justify-content: space-between;
+}
+.NavUserAndCart{
+    display: flex;
+    width:90px;
+    justify-content: space-between;
+}
