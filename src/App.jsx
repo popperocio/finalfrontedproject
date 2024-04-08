@@ -1,5 +1,6 @@
 import './App.css'
 import { Cart } from './components/atoms/Cart/cart'
+import { Logo } from './assets/Logo/logo'
 import { User } from './components/atoms/User/user'
 
 function App() {
@@ -7,8 +8,9 @@ function App() {
 
   return (
     <>
-      <Cart></Cart>
-      <User></User>
+      <Logo/>
+      <Cart/>
+      <User/>
     </>
   )
 }
