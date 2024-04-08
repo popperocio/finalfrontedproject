@@ -1,17 +1,10 @@
 import './App.css'
-import { Cart } from './components/atoms/Cart/cart'
-import { Logo } from './assets/Logo/logo'
-import { User } from './components/atoms/User/user'
+import { Navbar } from './components/organisms/Navbar'
 
 function App() {
 
-
   return (
-    <>
-      <Logo/>
-      <Cart/>
-      <User/>
-    </>
+      <Navbar/>
   )
 }
 

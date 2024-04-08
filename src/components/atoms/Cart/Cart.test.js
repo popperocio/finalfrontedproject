@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { Cart } from './cart';
+import { Cart } from './index';
 import '@testing-library/jest-dom'
 
 
