@@ -9,9 +9,11 @@ test('renders navbar', () => {
   const searchbar = getByTestId('searchbar');
   const texfield = getByTestId('texfield'); 
   const travellers = getByTestId('travellers-icon');
-  const rooms = getByTestId('rooms-icon')
+  const rooms = getByTestId('rooms-icon');
+  const searchButton = getByTestId ('search-btn');
   expect(searchbar).toBeInTheDocument();
   expect(texfield).toBeInTheDocument();
   expect(travellers).toBeInTheDocument();
   expect(rooms).toBeInTheDocument();
+  expect(searchButton).toBeInTheDocument();
 });
