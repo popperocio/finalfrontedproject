@@ -1,0 +1,14 @@
+.SearchButton{
+    width: 10%;
+    padding:15px 5px 15px 5px;
+    background-color: #4f03ff;
+    color: #fff;
+    border: none;
+    border-radius:20px;
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+.SearchBarContainer .SearchButton{
+    margin-left: 10px;
+}
