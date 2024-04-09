@@ -8,6 +8,10 @@ test('renders navbar', () => {
   const { getByTestId } = render(<SearchBar/>);
   const searchbar = getByTestId('searchbar');
   const texfield = getByTestId('texfield'); 
+  const travellers = getByTestId('travellers-icon');
+  const rooms = getByTestId('rooms-icon')
   expect(searchbar).toBeInTheDocument();
   expect(texfield).toBeInTheDocument();
+  expect(travellers).toBeInTheDocument();
+  expect(rooms).toBeInTheDocument();
 });

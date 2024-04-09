@@ -1,0 +1,17 @@
+.DividedInput{
+ display: flex;
+ border:1px solid rgb(188, 186, 186);
+ border-radius: 5px;
+ height:56px;
+ margin-left: 10px;
+ background:white;
+}
+
+.Travellers{
+    padding-right: 10px;
+    border-right: 1px solid rgb(188, 186, 186);
+}
+
+.Rooms{
+    padding-right: 10px;
+}
