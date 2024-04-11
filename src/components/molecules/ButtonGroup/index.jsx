@@ -4,24 +4,26 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 
 
-const ButtonGroups = ({id}) => {
+const ButtonGroups = ({id, onQuantityChange}) => {
   const [count, setCount] = useState(1);
 
   const decreaseCount = () => {
     if (count > 1) {
       setCount(count - 1);
+      onQuantityChange(count -1);
     }
   };
 
   const increaseCount = () => {
     setCount(count + 1);
+    onQuantityChange(count +1);
   };
 
   return (
         <ButtonGroup
-        aria-label="radius button group"
-        sx={{ '--ButtonGroup-radius': '40px'}}
-        data-testid={id}
+          aria-label="radius button group"
+          sx={{ '--ButtonGroup-radius': '40px'}}
+          data-testid={id}
         >
           <>
             <Button 

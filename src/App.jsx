@@ -1,13 +1,18 @@
 import './App.css'
 import { Navbar } from './components/organisms/Navbar'
+import { Results } from './components/organisms/Results'
 import { SearchBar } from './components/organisms/SearchBar'
+import { SearchProvider } from './contexts/SearchContext'
 
 function App() {
 
   return (
     <>
-      <Navbar></Navbar>
-      <SearchBar></SearchBar>
+      <SearchProvider>
+        <Navbar/>
+        <SearchBar/>
+        <Results/>
+      </SearchProvider>
     </>
       
   )

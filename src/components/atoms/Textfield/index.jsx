@@ -2,7 +2,11 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export const Textfield = ({label}) => {
+export const Textfield = ({label, onChange}) => {
+
+  const handleInputChange = (event) => {
+    onChange(event.target.value);
+  };
 
   return (
       <Box
@@ -11,9 +15,14 @@ export const Textfield = ({label}) => {
             '& > :not(style)': { m: 1, width: '20ch' }, 
           }}
           noValidate
-          autoComplete="off"
+          autoComplete="on"
       >
-          <TextField id="outlined-basic" label={label} variant="outlined" sx={{background:"white"}} data-testid="texfield"/>
+          <TextField id="outlined-basic" 
+            label={label} 
+            variant="outlined" 
+            sx={{background:"white"}} 
+            onChange={handleInputChange}
+            data-testid="texfield"/>
        </Box>
     
   )
