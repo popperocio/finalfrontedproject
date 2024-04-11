@@ -5,7 +5,7 @@ import { Textfield } from '../../atoms/Textfield';
 import { Calendar } from '../../atoms/Calendar';
 import { DividedInput } from '../../molecules/DividedInput';
 import { SearchButton } from '../../atoms/SearchButton';
-import { SearchContext } from '../../../contexts/SearchContext';
+import { SearchContext } from '../../../contexts/SearchContext/SearchContext';
 
 function SearchBar() {
   const [ fromDate, setFromDate ] = useState(null);

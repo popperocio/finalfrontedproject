@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent, getByTestId} from '@testing-library/react';
 import { SearchBar } from './index';
 import '@testing-library/jest-dom'
-import { SearchContext } from '../../../contexts/SearchContext';
+import { SearchContext } from '../../../contexts/SearchContext/SearchContext';
 
 const mockSearchContextValues = {
   searchData: {}, 
