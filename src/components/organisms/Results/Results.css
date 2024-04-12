@@ -1,0 +1,20 @@
+.Results{
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    margin:40px;
+}
+
+.CardResultsContainer {
+    flex-direction: column;
+    width:55%;
+    justify-content: start;
+    align-items: flex-end;
+}
+
+
+.CardResultsContainer p{
+    font-size: large;
+    font-weight: bolder;
+}
