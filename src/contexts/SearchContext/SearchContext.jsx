@@ -14,7 +14,6 @@ function SearchProvider({ children }) {
     const [hotels, setHotels] = useState([]);
     const [searchPerformed, setSearchPerformed] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
-    const searchedHotels = useState([]);
 
     const getData = async () => {
       const url = 'https://priceline-com-provider.p.rapidapi.com/v2/hotels/downloadHotels?limit=50&language=en-US';
@@ -56,7 +55,13 @@ function SearchProvider({ children }) {
     const updateSearchData = (data) => {
         setSearchData({ ...searchData, ...data });
     };
-    
+
+    const searchedHotels = Object.values(hotels).filter((hotel) => {
+      const hotelCity = hotel.city.toLowerCase();
+      const searchText = searchData.destination.toLowerCase();
+      return hotelCity.includes(searchText);
+    })
+
     return (
         <SearchContext.Provider
             value={{ 
@@ -64,7 +69,8 @@ function SearchProvider({ children }) {
               updateSearchData,
               searchedHotels, 
               searchPerformed, 
-              setSearchPerformed 
+              setSearchPerformed,
+              hotels
             }}
         >
           {children}

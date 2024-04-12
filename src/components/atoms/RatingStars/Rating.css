@@ -1,0 +1,13 @@
+.RatingContainer {
+    display: flex;
+    align-items: center;
+    margin: 20px 0px 5px 0px;;
+}
+
+.RatingContainer .StarFilled {
+    color: #FF7A00;
+}
+
+.RatingContainer h3 {
+    margin-left: 5px;
+}
