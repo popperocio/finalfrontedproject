@@ -1,0 +1,25 @@
+.RatingFilterContainer {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  
+}
+
+.RatingsContainer {
+    margin: 0px 25px;
+}
+
+.RatingStarsContainer.clicked {
+    background: linear-gradient(90deg, rgba(194, 235, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
+}
+
+.RatingFilterContainer h2{
+    color: rgba(0, 0, 0, 0.6);
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.4375em;
+    letter-spacing: 0.00938em;
+    padding: 0;
+    position: relative;
+    margin-left: 24px;
+}
