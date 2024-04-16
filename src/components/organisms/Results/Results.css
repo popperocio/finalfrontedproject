@@ -8,7 +8,7 @@
 
 .CardResultsContainer {
     flex-direction: column;
-    width:55%;
+    width:70%;
     justify-content: start;
     align-items: flex-end;
 }
@@ -17,4 +17,17 @@
 .CardResultsContainer p{
     font-size: large;
     font-weight: bolder;
+}
+
+.Filters{
+    width: 35%;
+    height: 70%;
+    border: solid 1px #8B8B8B;
+    border-radius: 10px;
+}
+
+.ResultsContainer{
+    display: flex;
+    width:80%;
+    margin-top: 30px;
 }
