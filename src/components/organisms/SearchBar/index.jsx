@@ -16,8 +16,9 @@ function SearchBar() {
   const { searchData, updateSearchData } = useContext(SearchContext);
   const { searchedHotels } = useContext(SearchContext);
   const { setSearchPerformed } = useContext(SearchContext);
+  const { isBooking } = useContext(SearchContext); 
   const currentDate = dayjs();
-
+  
   const handleFromDateChange = (date) => {
     setFromDate(date);
   };
@@ -51,6 +52,7 @@ function SearchBar() {
 
   return (
     <>
+     {!isBooking && (
       <div className='SearchBarContainer' data-testid="searchbar">
         <Textfield label="Destination" onChange={handleDestinationChange}/>
         <Calendar label="From" 
@@ -69,7 +71,8 @@ function SearchBar() {
           onRoomsQuantityChange={handleRoomsQuantityChange}
         />
         <SearchButton onClick={handleSearch} />
-      </div>
+      </div> 
+      )}
     </>
   );
 }

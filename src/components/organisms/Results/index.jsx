@@ -3,11 +3,17 @@ import './Results.css'
 import { SearchContext } from '../../../contexts/SearchContext/SearchContext';
 import { Card } from './Card';
 import { Filter } from '../../molecules/Filter';
+import BookingReservation from './BookingReservation';
+
 
 function Results({}) {
     const { searchedHotels } = useContext(SearchContext);
     const { searchPerformed } = useContext(SearchContext);
-    const { hotels } = useContext(SearchContext);
+    const { isBooking, selectedHotel} = useContext(SearchContext);
+
+    if (isBooking) {
+        return <BookingReservation hotel={selectedHotel}/>; 
+    }
 
   return (
     <div className='Results'>
@@ -21,12 +27,8 @@ function Results({}) {
                   {Object.values(searchedHotels).map((hotel, index)=>(
                     <Card 
                       key={index}
-                      hotel_id={hotel.hotelid_ppn}
-                      hotel_name={hotel.hotel_name}
-                      stars={hotel.star_rating}
-                      image={hotel.thumbnail}
+                      hotel={hotel}
                       price="99"
-                      adress={hotel.hotel_address}
                     />
                   ))}
                 </div>

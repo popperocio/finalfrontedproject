@@ -1,28 +1,32 @@
-import React from 'react';
+import React, { useContext} from 'react';
 import './Card.css'
 import { RatingStars } from '../../../atoms/RatingStars';
 import { BookButton } from '../../../atoms/BookButton';
+import { SearchContext } from '../../../../contexts/SearchContext/SearchContext';
 
+function Card ({ hotel_id, hotel,price  }) {
 
-function Card ({ hotel_id, hotel_name, stars, image, price, address }) {
+    const { setSelectedHotel, setIsBooking } = useContext(SearchContext);
+
+    const handleBook = () => {
+        setSelectedHotel(hotel);
+        setIsBooking(true);
+    };
 
     return (
         <div className='CardContainer' data-testid="card">
             <div className='HotelImageContainer'>
-                <img src={image} alt="hotel image" data-testid="cardImage" />
+                <img src={hotel.thumbnail} alt="hotel image" data-testid="cardImage" />
             </div>
             <div className='HotelCardDetails'>
-                <h2 data-testid="hotelName">{ hotel_name }</h2> 
-                <RatingStars  className="Rating" stars={stars}/>
-                <h3 data-testid="address"> {address }</h3> 
+                <h2 data-testid="hotelName">{ hotel.hotel_name }</h2> 
+                <RatingStars  className="Rating" stars={hotel.star_rating}/>
+                <h3 data-testid="address"> {hotel.address }</h3> 
                 <h3 className='Price'>${ price }</h3>
-                <BookButton className="BookButton"/>
+                <BookButton className="BookButton" handleBook={handleBook}/>
             </div>
-            
         </div>
     )
 }
-
-
 
 export { Card }

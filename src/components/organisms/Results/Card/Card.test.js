@@ -2,18 +2,25 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { Card } from './index';
 import '@testing-library/jest-dom'
+import { SearchContext } from '../../../../contexts/SearchContext/SearchContext';
 
+const mockSearchContext = {
+  setSelectedHotel: jest.fn(),
+  setIsBooking: jest.fn(),
+};
 
 test('renders card component with correct information', () => {
-  const image = 'sample_image_url';
-  const name = "hotel name";
-  const address = "5th Av. 890"
+  const hotel= {
+    hotelid_ppn: 1,
+    hotel_name: 'Hotel 1',
+    star_rating: 4,
+    thumbnail: 'hotel1.jpg',
+    hotel_address: '123 Main St'
+  }
   const { getByTestId } = render(
-                                <Card 
-                                    image={image} 
-                                    hotel_name={name} 
-                                    address= {address}
-                                />
+    <SearchContext.Provider value={mockSearchContext}>
+      <Card hotel={hotel}/>
+    </SearchContext.Provider>
   );
   const renderedImage = getByTestId('cardImage');
   const renderedName = getByTestId('hotelName');
