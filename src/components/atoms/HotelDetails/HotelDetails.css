@@ -1,0 +1,9 @@
+.HotelDetails h3, img{
+    padding: 5px;
+    font-size: medium;
+    font-weight: light;
+}
+
+.HotelName{
+    margin-top: 10px;
+}

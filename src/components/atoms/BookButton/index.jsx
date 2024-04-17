@@ -1,13 +1,8 @@
-import React,  { useState }from 'react'
+import React from 'react'
 import Button from '@mui/material/Button';
 import LuggageIcon from '@mui/icons-material/Luggage';
 
-
-export const BookButton = () => {
-  
-  const handleBook = () => {
-    setOpenModal(true); 
-  };
+export const BookButton = ({handleBook}) => {
 
   return (
     <div>

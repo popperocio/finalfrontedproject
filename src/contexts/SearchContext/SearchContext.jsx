@@ -16,6 +16,8 @@ function SearchProvider({ children }) {
     const [isLoading, setIsLoading] = useState(true);
     const [selectedRating, setSelectedRating] = useState(null);
     const [selectedAmenities, setSelectedAmenities] = useState([]);
+    const [isBooking, setIsBooking] = useState(false);
+    const [selectedHotel, setSelectedHotel] = useState(null);
 
     const amenity_mapping = {
       "17": "WiFi",
@@ -32,7 +34,7 @@ function SearchProvider({ children }) {
       const options = {
         method: 'GET',
         headers: {
-          'X-RapidAPI-Key': 'c5b1cdd1cfmshe39d578d7607445p1d6395jsne3894186d211',
+          'X-RapidAPI-Key': '...',
           'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com'
         }
       };
@@ -79,7 +81,6 @@ function SearchProvider({ children }) {
     }).filter((hotel) => {
       if (selectedRating) {
         const roundedRating=Math.floor(hotel.star_rating)
-        console.log("rounded rating",roundedRating, "selected", selectedRating)
         return roundedRating >= selectedRating;
       }
       return true;
@@ -105,7 +106,11 @@ function SearchProvider({ children }) {
               selectedRating,
               setSelectedRating,
               selectedAmenities,
-              setSelectedAmenities
+              setSelectedAmenities,
+              isBooking,
+              setIsBooking,
+              selectedHotel, 
+              setSelectedHotel
             }}
         >
           {children}
