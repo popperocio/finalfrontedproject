@@ -22,3 +22,7 @@
 .ReservationForm h2{
     margin-bottom: 15px;
 }
+
+.NameAndSurname{
+    display: flex;
+}
