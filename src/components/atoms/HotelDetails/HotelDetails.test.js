@@ -4,31 +4,43 @@ import '@testing-library/jest-dom'
 import { SearchContext } from '../../../contexts/SearchContext/SearchContext';
 import { HotelDetails } from './index';
 
-test('renders HotelDetails with context', () => {
-  const hotel = {
-    hotel_name: 'Sample Hotel',
-    thumbnail: 'sample.jpg',
-    hotel_address: '123 Sample St',
-    city: 'Sample City',
-    country: 'Sample Country',
-  };
-  const searchData = {
-    fromDate: '2024-04-18',
-    toDate: '2024-04-20',
-    travellers: 2,
-    rooms: 1,
-  };
+const hotel = {
+  hotel_name: 'Sample Hotel',
+  thumbnail: 'sample.jpg',
+  hotel_address: '123 Sample St',
+  city: 'Sample City',
+  country: 'Sample Country',
+  price:100
+};
+const searchData = {
+  fromDate: '2024-04-18',
+  toDate: '2024-04-20',
+  travellers: 2,
+  rooms: 1,
+};
 
-  const contextValue = { searchData };
+const mockSearchContext = {
+  useEffect: jest.fn(),
+  searchData: {searchData},
+  setPrice: jest.fn()
+};
 
-  const { getByText } = render(
-    <SearchContext.Provider value={contextValue}>
-      <HotelDetails hotel={hotel} />
-    </SearchContext.Provider>
-  );
+describe('HotelDetails component', () => {
+  test('renders HotelDetails with context', () => {
+    const contextValue = { searchData };
 
-  expect(getByText('Check in: 2024-04-18')).toBeInTheDocument();
-  expect(getByText('Check out: 2024-04-20')).toBeInTheDocument();
-  expect(getByText('Travellers: 2')).toBeInTheDocument();
-  expect(getByText('Rooms: 1')).toBeInTheDocument();
+    const { getByText } = render(
+      <SearchContext.Provider value={contextValue}>
+        <HotelDetails hotel={hotel} />
+      </SearchContext.Provider>
+    );
+
+    expect(getByText('Check in: 2024-04-18')).toBeInTheDocument();
+    expect(getByText('Check out: 2024-04-20')).toBeInTheDocument();
+    expect(getByText('Travellers: 2')).toBeInTheDocument();
+    expect(getByText('Rooms: 1')).toBeInTheDocument();
+    expect(getByText('Price: 200')).toBeInTheDocument();
+  });
+
+  
 });
