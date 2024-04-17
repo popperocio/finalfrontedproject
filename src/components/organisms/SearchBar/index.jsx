@@ -15,10 +15,11 @@ function SearchBar() {
   const [ rooms, setRooms ] = useState(1);
   const { searchData, updateSearchData } = useContext(SearchContext);
   const { searchedHotels } = useContext(SearchContext);
-  const { setSearchPerformed } = useContext(SearchContext);
+  const { searchPerformed, setSearchPerformed } = useContext(SearchContext);
   const { isBooking } = useContext(SearchContext); 
   const currentDate = dayjs();
-  
+  const [isCriteriaValid, setIsCriteriaValid] = useState(true);
+
   const handleFromDateChange = (date) => {
     setFromDate(date);
   };
@@ -28,14 +29,21 @@ function SearchBar() {
   };
   
   const handleSearch = () => {
-    updateSearchData({ 
-      destination: destination,
-      fromDate: fromDate?.toString(),
-      toDate: toDate?.toString(),
-      travellers: travellers,
-      rooms:  rooms
-    });
-    setSearchPerformed(true);
+    if (destination && fromDate && toDate) {
+      updateSearchData({ 
+        destination: destination,
+        fromDate: fromDate.toString(),
+        toDate: toDate.toString(),
+        travellers: travellers,
+        rooms:  rooms
+      });
+      setSearchPerformed(true);
+     // setIsCriteriaValid(true); 
+    // } else {
+    //   setIsCriteriaValid(false); 
+    }else{
+      setSearchPerformed(true);
+    }
   };
 
   const handleDestinationChange = (destination) => {
@@ -50,21 +58,33 @@ function SearchBar() {
     setRooms(roomsQuantity);  
   }
 
+  console.log("from data",fromDate)
+  console.log("search performed", searchPerformed)
   return (
     <>
      {!isBooking && (
+     
       <div className='SearchBarContainer' data-testid="searchbar">
-        <Textfield label="Destination" onChange={handleDestinationChange}/>
+        <Textfield 
+          defaultLabel="Destination"
+          label="Destination"
+          onChange={handleDestinationChange}
+          showError={searchPerformed && destination==''}
+        />
         <Calendar label="From" 
           selectedDate={fromDate} 
           onDateChange={handleFromDateChange} 
           minDate={currentDate}
+          incompleteError={searchPerformed && fromDate==null}
+          // className={!isCriteriaValid && !fromDate ? 'error' : ''}
         />
         <Calendar 
           label="To" 
           selectedDate={toDate} 
           onDateChange={handleToDateChange} 
           minDate={fromDate}
+          incompleteError={searchPerformed && toDate==null}
+          // className={!isCriteriaValid && !toDate ? 'error' : ''}
         />
         <DividedInput 
           onTravellersQuantityChange={handleTravellersQuantityChange} 
