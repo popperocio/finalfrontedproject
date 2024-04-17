@@ -18,8 +18,7 @@ function SearchBar() {
   const { searchPerformed, setSearchPerformed } = useContext(SearchContext);
   const { isBooking } = useContext(SearchContext); 
   const currentDate = dayjs();
-  const [isCriteriaValid, setIsCriteriaValid] = useState(true);
-
+ 
   const handleFromDateChange = (date) => {
     setFromDate(date);
   };
@@ -38,9 +37,6 @@ function SearchBar() {
         rooms:  rooms
       });
       setSearchPerformed(true);
-     // setIsCriteriaValid(true); 
-    // } else {
-    //   setIsCriteriaValid(false); 
     }else{
       setSearchPerformed(true);
     }
@@ -58,12 +54,9 @@ function SearchBar() {
     setRooms(roomsQuantity);  
   }
 
-  console.log("from data",fromDate)
-  console.log("search performed", searchPerformed)
   return (
     <>
      {!isBooking && (
-     
       <div className='SearchBarContainer' data-testid="searchbar">
         <Textfield 
           defaultLabel="Destination"
@@ -76,7 +69,6 @@ function SearchBar() {
           onDateChange={handleFromDateChange} 
           minDate={currentDate}
           incompleteError={searchPerformed && fromDate==null}
-          // className={!isCriteriaValid && !fromDate ? 'error' : ''}
         />
         <Calendar 
           label="To" 
@@ -84,7 +76,6 @@ function SearchBar() {
           onDateChange={handleToDateChange} 
           minDate={fromDate}
           incompleteError={searchPerformed && toDate==null}
-          // className={!isCriteriaValid && !toDate ? 'error' : ''}
         />
         <DividedInput 
           onTravellersQuantityChange={handleTravellersQuantityChange} 
