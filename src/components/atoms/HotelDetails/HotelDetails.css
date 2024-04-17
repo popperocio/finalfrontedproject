@@ -7,3 +7,16 @@
 .HotelName{
     margin-top: 10px;
 }
+
+.DetailsToComplete{
+    display: flex;
+    flex-direction: column;
+}
+.DetailsToComplete div{
+    margin-top:5px;
+}
+.TravellersData, .RoomsData{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}

@@ -28,7 +28,6 @@ function Results({}) {
                     <Card 
                       key={index}
                       hotel={hotel}
-                      price="99"
                     />
                   ))}
                 </div>

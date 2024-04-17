@@ -45,11 +45,12 @@ function SearchProvider({ children }) {
         const parsedResults = JSON.parse(results)
         const hotelParsedResults = parsedResults["getSharedBOF2.Downloads.Hotel.Hotels"]
         const hotelResults = hotelParsedResults.results.hotels
-        const hotelsWithAmenities = Object.values(hotelResults).map(hotel => ({
+        const hotelsWithExtraInformation = Object.values(hotelResults).map(hotel => ({
           ...hotel,
-          amenities: hotel.amenity_codes.split('^').map(code => amenity_mapping[code]).filter(Boolean)
+          amenities: hotel.amenity_codes.split('^').map(code => amenity_mapping[code]).filter(Boolean),
+          price: Math.floor(Math.random() * (150 - 80 + 1)) + 80 
         }));
-        return hotelsWithAmenities
+        return hotelsWithExtraInformation
       } catch (error) {
         console.error(error);
       }

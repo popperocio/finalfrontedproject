@@ -4,7 +4,7 @@ import { RatingStars } from '../../../atoms/RatingStars';
 import { BookButton } from '../../../atoms/BookButton';
 import { SearchContext } from '../../../../contexts/SearchContext/SearchContext';
 
-function Card ({ hotel_id, hotel,price  }) {
+function Card ({ hotel_id, hotel  }) {
 
     const { setSelectedHotel, setIsBooking } = useContext(SearchContext);
 
@@ -22,7 +22,7 @@ function Card ({ hotel_id, hotel,price  }) {
                 <h2 data-testid="hotelName">{ hotel.hotel_name }</h2> 
                 <RatingStars  className="Rating" stars={hotel.star_rating}/>
                 <h3 data-testid="address"> {hotel.address }</h3> 
-                <h3 className='Price'>${ price }</h3>
+                <h3 className='Price'>${ hotel.price }</h3>
                 <BookButton className="BookButton" handleBook={handleBook}/>
             </div>
         </div>
