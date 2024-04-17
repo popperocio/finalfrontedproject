@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export const Calendar = ({label, selectedDate, onDateChange, minDate}) => {
+export const Calendar = ({label, selectedDate, onDateChange, minDate, incompleteError}) => {
 
-  const [error, setError] = React.useState(null);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    setError(incompleteError);
+  }, [incompleteError]); 
 
   const handleDateChange = (date) => {
     if (onDateChange) {
