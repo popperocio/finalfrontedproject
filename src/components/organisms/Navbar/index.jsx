@@ -3,7 +3,7 @@ import "./Navbar.css"
 import { Logo } from '../../../assets/Logo'
 import { User } from '../../atoms/User'
 import { Cart } from '../../atoms/Cart'
-import { CustomDrawer } from '../../atoms/CustomDrawer'
+import { CustomDrawer } from '../../molecules/CustomDrawer'
 
 export const Navbar = () => {
   return (
