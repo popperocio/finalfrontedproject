@@ -8,3 +8,44 @@
     background-size: cover;
     background-position: center; 
 }
+
+.DatesAndInfo{
+    display: flex;
+}
+
+@media screen and (min-width: 412px) and (max-width: 792px) {
+    .SearchBarContainer{
+        flex-direction: column;
+        height: 300px;
+    }
+    
+    .Textfield {
+        width: 100%;
+        margin:0px;
+    }
+
+    .DatesAndInfo {
+        flex-direction: column;
+        width: 100%;
+        margin: 0px;
+    }
+
+}
+
+@media screen and (min-width: 793px) and (max-width: 1140px) {
+    .SearchBarContainer{
+        flex-direction: column;
+        height: 300px;
+    }
+    
+    .Textfield {
+        width: 100%;
+        margin:0px;
+    }
+
+    .DatesAndInfo {
+        flex-direction: column;
+        width: 100%;
+        margin: 0px;
+    }
+}

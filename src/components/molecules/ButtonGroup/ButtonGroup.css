@@ -1,5 +1,35 @@
 .ButtonGroup{
     font-size: '12px';
     padding: '8px';
-    border: "1px solid grey"
+    border: "1px solid grey";
+}
+
+.ButtonGroupButton{
+    width:"30px";
+    height:"30px";
+    font-Size: '12px';
+    padding: '5px';
+    border: "1px solid rgb(188, 186, 186)";
+    border-right: "1px solid rgb(188, 186, 186); !important"
+}
+
+@media screen and (min-width: 412px) and (max-width: 793px) {
+    .ButtonGroup{
+        font-size: '12px';
+        padding: '8px';
+        border: "1px solid grey"
+    }
+}
+
+@media screen and (min-width: 794px) and (max-width: 1140px) {
+    .ButtonGroup{
+        font-size: '12px';
+        padding: '8px';
+        border: "1px solid grey";
+    }
+
+    .ButtonGroupButton{
+        width: 20px;
+    }
+
 }

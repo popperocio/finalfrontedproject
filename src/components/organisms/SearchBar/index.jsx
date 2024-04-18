@@ -63,25 +63,31 @@ function SearchBar() {
           label="Destination"
           onChange={handleDestinationChange}
           showError={searchPerformed && destination==''}
+          className="Textfield"
         />
-        <Calendar label="From" 
-          selectedDate={fromDate} 
-          onDateChange={handleFromDateChange} 
-          minDate={currentDate}
-          incompleteError={searchPerformed && fromDate==null}
-        />
-        <Calendar 
-          label="To" 
-          selectedDate={toDate} 
-          onDateChange={handleToDateChange} 
-          minDate={fromDate}
-          incompleteError={searchPerformed && toDate==null}
-        />
-        <DividedInput 
-          onTravellersQuantityChange={handleTravellersQuantityChange} 
-          onRoomsQuantityChange={handleRoomsQuantityChange}
-        />
-        <SearchButton onClick={handleSearch} />
+        <div className='DatesAndInfo'>
+           <Calendar label="From" 
+            selectedDate={fromDate} 
+            onDateChange={handleFromDateChange} 
+            minDate={currentDate}
+            incompleteError={searchPerformed && fromDate==null}
+            className="Date"
+          />
+          <Calendar 
+            label="To" 
+            selectedDate={toDate} 
+            onDateChange={handleToDateChange} 
+            minDate={fromDate}
+            incompleteError={searchPerformed && toDate==null}
+            className="Date"
+          />
+          <DividedInput 
+            onTravellersQuantityChange={handleTravellersQuantityChange} 
+            onRoomsQuantityChange={handleRoomsQuantityChange}
+            className="DividedInputSearchBar"
+          />
+        </div>
+        <SearchButton onClick={handleSearch} className="SearchButtonBar" />
       </div> 
       )}
     </>
