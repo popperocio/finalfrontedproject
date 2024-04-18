@@ -15,3 +15,32 @@
 .Rooms{
     padding-right: 10px;
 }
+@media screen and (min-width: 412px) and (max-width: 799px) {
+    .DividedInput{
+        display: flex;
+        margin:0px;
+    }
+
+    .Travellers, .Rooms{
+        display: flex;
+        flex-direction: row;
+        padding:2px;
+        width:50%;
+        justify-content: space-around;
+    }
+}
+
+@media screen and (min-width: 800px) and (max-width: 1140px) {
+    .DividedInput{
+        display: flex;
+        justify-content: space-between;
+        margin: 0px;
+    }
+    
+    .Travellers, .Rooms{
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}

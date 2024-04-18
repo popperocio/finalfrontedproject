@@ -9,8 +9,13 @@
 }
 
 .HotelImageContainer {
-    width:30%;
+    width:40%;
     display: flex;
+}
+
+.HotelImageContainer img {
+    width:80%;
+    padding: 0px;
 }
 
 .CardContainer img {
@@ -20,9 +25,6 @@
 .CardContainer h2{
     font-weight: bolder;
     font-size: large;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-wrap: wrap;
     border:2 px solid black;
 }
 
@@ -36,8 +38,10 @@
     width:60%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-   
+    align-items: start;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
 }
 
 .Rating{
@@ -51,4 +55,103 @@
 
 .BookButton{
     margin-top: 5px;
+}
+
+@media screen and (min-width: 412px) and (max-width: 600px) {
+    .CardContainer {
+        margin:0px;
+        width: 100%;
+        justify-content: space-between;
+        padding:5px;
+    }
+
+    .CardContainer h2{
+        font-size: small;
+       
+    }
+    .CardContainer h3{
+        font-size: small;
+        padding-top: 5px;
+    }
+
+    .Rating{
+        margin-top: 20px;
+    }
+
+    .HotelImageContainer {
+        width:40%;
+    }
+
+    .HotelImageContainer img {
+        width:100%;
+        padding: 0px;
+    }
+
+    .HotelCardDetails {
+        align-items: start;
+        padding-left: 10px;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 700px) {
+    .CardContainer {
+        width: 100%;
+        justify-content: space-between;
+        padding:10px;
+    }
+
+    .CardContainer h2{
+        font-size: medium;
+       
+    }
+    .CardContainer h3{
+        font-size: medium;
+        padding-top: 10px;
+    }
+
+    .HotelImageContainer {
+        width:40%;
+    }
+
+    .HotelImageContainer img {
+        width:100%;
+        padding: 0px;
+    }
+
+    .HotelCardDetails {
+        align-items: start;
+        padding-left: 10px;
+    }
+}
+
+@media screen and (min-width: 700px) and (max-width: 1000px){
+    .CardContainer {
+        width: 100%;
+        justify-content: space-between;
+        padding:10px;
+    }
+
+    .CardContainer h2{
+        font-size: medium;
+       
+    }
+    .CardContainer h3{
+        font-size: medium;
+        padding-top: 10px;
+    }
+
+    .HotelImageContainer {
+        width:40%;
+    }
+
+    .HotelImageContainer img {
+        width:100%;
+        padding: 0px;
+    }
+
+    .HotelCardDetails {
+        align-items: start;
+        padding-left: 10px;
+    }
+
 }

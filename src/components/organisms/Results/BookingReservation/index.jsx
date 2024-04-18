@@ -129,6 +129,7 @@ const BookingReservation = ({hotel}) => {
                             error={errors.passportNumber}
                             onChange={(e) => setFormData({ ...formData, passportNumber: e.target.value })}
                             helperText={errors.passportNumber ? "Your passport number cannot be empty": ""}
+                            className='Passport'
                         />
                     </div>
                     <div className='Vouchers'>
@@ -142,6 +143,7 @@ const BookingReservation = ({hotel}) => {
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             helperText={errors.email ? "Invalid email": ""}
                             type="email"
+                            className='EmailVoucher'
                         />
                         <TextField 
                             sx={{margin:'10px',width: '60%'}}
@@ -152,7 +154,8 @@ const BookingReservation = ({hotel}) => {
                             error={errors.confirmEmail}
                             onChange={(e) => setFormData({ ...formData, confirmEmail: e.target.value })}
                             helperText={errors.confirmEmail ? "Your email should be the same as the one entered above" : ""}
-                        />
+                            className='EmailVoucher'
+                       />
                     </div>
                     <FormControlLabel
                         control={<Checkbox checked={checked} onChange={handleChange}/>}

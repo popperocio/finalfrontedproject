@@ -12,3 +12,10 @@
 .SearchBarContainer .SearchButton{
     margin-left: 10px;
 }
+
+@media screen and (min-width: 412px) and (max-width: 1140px) {
+    .SearchBarContainer .SearchButton{
+        margin: 5px;
+        width: 100px;
+    }
+}

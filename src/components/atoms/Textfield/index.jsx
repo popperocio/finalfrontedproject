@@ -1,6 +1,7 @@
 import React from 'react'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import './Textfield.css'
 
 export const Textfield = ({label, onChange}) => {
 
@@ -11,13 +12,12 @@ export const Textfield = ({label, onChange}) => {
   return (
       <Box
           component="form"
-          sx={{
-            '& > :not(style)': { m: 1, width: '20ch' }, 
-          }}
           noValidate
           autoComplete="on"
+          className='Box'
       >
           <TextField id="outlined-basic" 
+            className='Textfield'
             label={label} 
             variant="outlined" 
             sx={{background:"white"}} 

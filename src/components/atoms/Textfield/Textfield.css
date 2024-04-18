@@ -1,0 +1,22 @@
+.Box{
+    width: '20ch';
+    margin-right: 10px;
+}
+
+.Textfield{
+    margin-right:10px;
+}
+
+
+@media screen and (min-width: 412px) and (max-width: 1140px) {
+    .Box{
+        width: 100%;
+        margin-top:5px;
+        margin-right: 0px;
+    }
+
+    .Textfield{
+        margin:0px;
+    }
+    
+}

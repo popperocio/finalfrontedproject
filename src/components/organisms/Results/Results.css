@@ -2,8 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center; 
-    justify-content: center;
-    margin:40px;
+    justify-content: space-around;
 }
 
 .CardResultsContainer {
@@ -12,12 +11,6 @@
     justify-content: start;
     align-items: flex-end;
     margin-left:40px;
-}
-
-
-.CardResultsContainer p{
-    font-size: large;
-    font-weight: bolder;
 }
 
 .Filters{
@@ -29,6 +22,43 @@
 
 .ResultsContainer{
     display: flex;
-    width:80%;
+    width:90%;
     margin-top: 30px;
+}
+
+
+@media screen and (min-width: 400px) and (max-width: 600px) {
+    .Results{
+        flex-direction: row;
+        margin:2px; 
+    }
+
+    .CardResultsContainer {
+        width:100%;
+        margin: 0px;
+    }
+
+    .Filters{
+        display: none;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 700px) {
+    .Filters{
+        display: none;
+    }
+
+    .CardResultsContainer {
+        width:100%;
+        margin: 0px;
+    }
+    .Results{
+        margin:10px;
+    }
+}
+
+@media screen and (min-width: 700px) and (max-width: 880px){
+    .Filters{
+        width: 25%;
+    }
 }

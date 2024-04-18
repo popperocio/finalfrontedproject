@@ -22,3 +22,22 @@
 .ReservationForm h2{
     margin-bottom: 15px;
 }
+
+@media screen and (min-width: 412px) and (max-width: 800px) {
+    .ReservationDetails{
+        display: none;
+    }
+
+    .BookingReservation{
+        margin: 0px;
+    }
+
+    .ReservationForm {
+        width: 100%;
+        margin: 20px;
+    }
+
+    .Passport, .EmailVoucher{
+        width: 100% !important;
+    }
+}
