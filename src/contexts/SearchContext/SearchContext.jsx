@@ -1,6 +1,8 @@
 import { useState, createContext, useEffect } from "react";
 import PropTypes from "prop-types"; 
 
+const KEY= import.meta.env.VITE_XRAPIDAPIKEY;
+
 const SearchContext = createContext();
 
 function SearchProvider({ children }) {
@@ -34,8 +36,8 @@ function SearchProvider({ children }) {
       const options = {
         method: 'GET',
         headers: {
-          'X-RapidAPI-Key': '...',
-          'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com'
+          'X-RapidAPI-Key': KEY,
+          'X-RapidAPI-Host':'priceline-com-provider.p.rapidapi.com'
         }
       };
 
