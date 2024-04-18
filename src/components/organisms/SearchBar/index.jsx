@@ -15,10 +15,10 @@ function SearchBar() {
   const [ rooms, setRooms ] = useState(1);
   const { searchData, updateSearchData } = useContext(SearchContext);
   const { searchedHotels } = useContext(SearchContext);
-  const { setSearchPerformed } = useContext(SearchContext);
+  const { searchPerformed, setSearchPerformed } = useContext(SearchContext);
   const { isBooking } = useContext(SearchContext); 
   const currentDate = dayjs();
-  
+ 
   const handleFromDateChange = (date) => {
     setFromDate(date);
   };
@@ -28,14 +28,18 @@ function SearchBar() {
   };
   
   const handleSearch = () => {
-    updateSearchData({ 
-      destination: destination,
-      fromDate: fromDate?.toString(),
-      toDate: toDate?.toString(),
-      travellers: travellers,
-      rooms:  rooms
-    });
-    setSearchPerformed(true);
+    if (destination && fromDate && toDate) {
+      updateSearchData({ 
+        destination: destination,
+        fromDate: fromDate.toString(),
+        toDate: toDate.toString(),
+        travellers: travellers,
+        rooms:  rooms
+      });
+      setSearchPerformed(true);
+    }else{
+      setSearchPerformed(true);
+    }
   };
 
   const handleDestinationChange = (destination) => {
@@ -54,12 +58,19 @@ function SearchBar() {
     <>
      {!isBooking && (
       <div className='SearchBarContainer' data-testid="searchbar">
-        <Textfield label="Destination" onChange={handleDestinationChange} className='Textfield'/>
+       <Textfield 
+        defaultLabel="Destination"
+        label="Destination"
+        onChange={handleDestinationChange}
+        showError={searchPerformed && destination==''}
+        className='Textfield'
+        />
         <div className='DatesAndInfo'>
-          <Calendar label="From" 
+           <Calendar label="From" 
             selectedDate={fromDate} 
             onDateChange={handleFromDateChange} 
             minDate={currentDate}
+            incompleteError={searchPerformed && fromDate==null}
             className="Date"
           />
           <Calendar 
@@ -67,6 +78,7 @@ function SearchBar() {
             selectedDate={toDate} 
             onDateChange={handleToDateChange} 
             minDate={fromDate}
+            incompleteError={searchPerformed && toDate==null}
             className="Date"
           />
           <DividedInput 
@@ -74,6 +86,7 @@ function SearchBar() {
             onRoomsQuantityChange={handleRoomsQuantityChange}
             className="DividedInputSearchBar"
           />
+          <SearchButton onClick={handleSearch} />
         </div>
         <SearchButton onClick={handleSearch} className="SearchButtonBar" />
       </div> 

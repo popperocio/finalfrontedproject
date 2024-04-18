@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import './Textfield.css'
 
-export const Textfield = ({label, onChange}) => {
+export const Textfield = ({defaultLabel,label, onChange, showError}) => {
 
   const handleInputChange = (event) => {
     onChange(event.target.value);
@@ -16,9 +16,11 @@ export const Textfield = ({label, onChange}) => {
           autoComplete="on"
           className='Box'
       >
-          <TextField id="outlined-basic" 
-            className='Textfield'
-            label={label} 
+          <TextField
+            error={showError}
+            id="outlined-error-helper-text"
+            label={label}
+            defaultlabel={defaultLabel} 
             variant="outlined" 
             sx={{background:"white"}} 
             onChange={handleInputChange}

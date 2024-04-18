@@ -23,6 +23,10 @@
     margin-bottom: 15px;
 }
 
+.NameAndSurname{
+    display: flex;
+}
+
 @media screen and (min-width: 412px) and (max-width: 800px) {
     .ReservationDetails{
         display: none;
@@ -40,4 +44,3 @@
     .Passport, .EmailVoucher{
         width: 100% !important;
     }
-}
