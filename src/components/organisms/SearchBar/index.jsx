@@ -58,12 +58,12 @@ function SearchBar() {
     <>
      {!isBooking && (
       <div className='SearchBarContainer' data-testid="searchbar">
-       <Textfield 
-        defaultLabel="Destination"
-        label="Destination"
-        onChange={handleDestinationChange}
-        showError={searchPerformed && destination==''}
-        className='Textfield'
+        <Textfield 
+          defaultLabel="Destination"
+          label="Destination"
+          onChange={handleDestinationChange}
+          showError={searchPerformed && destination==''}
+          className="Textfield"
         />
         <div className='DatesAndInfo'>
            <Calendar label="From" 
@@ -86,7 +86,6 @@ function SearchBar() {
             onRoomsQuantityChange={handleRoomsQuantityChange}
             className="DividedInputSearchBar"
           />
-          <SearchButton onClick={handleSearch} />
         </div>
         <SearchButton onClick={handleSearch} className="SearchButtonBar" />
       </div> 
