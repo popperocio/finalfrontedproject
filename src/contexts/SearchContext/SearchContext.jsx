@@ -37,7 +37,7 @@ function SearchProvider({ children }) {
         method: 'GET',
         headers: {
           'X-RapidAPI-Key': KEY,
-          'X-RapidAPI-Host':'..'
+          'X-RapidAPI-Host':'priceline-com-provider.p.rapidapi.com'
         }
       };
 
