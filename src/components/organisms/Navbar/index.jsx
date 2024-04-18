@@ -3,6 +3,7 @@ import "./Navbar.css"
 import { Logo } from '../../../assets/Logo'
 import { User } from '../../atoms/User'
 import { Cart } from '../../atoms/Cart'
+import { CustomDrawer } from '../../atoms/CustomDrawer'
 
 export const Navbar = () => {
   return (
@@ -11,6 +12,9 @@ export const Navbar = () => {
         <div className='NavUserAndCart'> 
           <Cart/>
           <User/>
+        </div>
+        <div className='MobileNavMenu'>
+          <CustomDrawer/>
         </div>
     </div>
   )
