@@ -6,7 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './BookingReservation.css'
-import { HotelDetails } from '../../../atoms/HotelDetails';
+import { HotelDetails } from '../../../molecules/HotelDetails';
 import ConfirmationModal from '../../../atoms/ConfirmationModal';
 import { SearchContext } from '../../../../contexts/SearchContext/SearchContext';
 

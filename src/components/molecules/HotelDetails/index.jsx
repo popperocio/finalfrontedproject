@@ -2,8 +2,8 @@ import React, { useContext, useState, useEffect } from 'react'
 import dayjs from 'dayjs';
 import { SearchContext } from '../../../contexts/SearchContext/SearchContext';
 import './HotelDetails.css';
-import { Calendar } from '../Calendar';
-import ButtonGroups from '../../molecules/ButtonGroup';
+import { Calendar } from '../../atoms/Calendar';
+import ButtonGroups from '../ButtonGroup';
 
 export const HotelDetails = ({hotel}) => {
 
