@@ -32,25 +32,13 @@ function SearchProvider({ children }) {
     };
   
     const getData = async () => {
-      const url = 'https://priceline-com-provider.p.rapidapi.com/v2/hotels/downloadHotels?limit=50&language=en-US';
-      const options = {
-        method: 'GET',
-        headers: {
-          'X-RapidAPI-Key': KEY,
-          'X-RapidAPI-Host':'priceline-com-provider.p.rapidapi.com'
-        }
-      };
-
       try {
-        const response = await fetch(url, options);
-        const results = await response.text()
-        const parsedResults = JSON.parse(results)
-        const hotelParsedResults = parsedResults["getSharedBOF2.Downloads.Hotel.Hotels"]
-        const hotelResults = hotelParsedResults.results.hotels
-        const hotelsWithExtraInformation = Object.values(hotelResults).map(hotel => ({
+        const response = await fetch("http://127.0.0.1:8000/hotels");
+        const hotelList = await response.json();
+        const flattenedHotels = hotelList.reduce((acc, val) => acc.concat(val), []);
+        const hotelsWithExtraInformation = flattenedHotels.map(hotel => ({
           ...hotel,
-          amenities: hotel.amenity_codes.split('^').map(code => amenity_mapping[code]).filter(Boolean),
-          price: Math.floor(Math.random() * (150 - 80 + 1)) + 80 
+          amenities: hotel.amenities.split('^').map(code => amenity_mapping[code]).filter(Boolean),
         }));
         return hotelsWithExtraInformation
       } catch (error) {
@@ -63,7 +51,10 @@ function SearchProvider({ children }) {
       const fetchData = async () => {
         try {
           const hotelList = await getData();
+          console.log("hotel list",hotelList)
+          
           setHotels(hotelList);
+          // setHotels(hotelList);
           setIsLoading(false);
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -77,13 +68,13 @@ function SearchProvider({ children }) {
         setSearchData({ ...searchData, ...data });
     };
 
-    const searchedHotels = Object.values(hotels).filter((hotel) => {
-      const hotelCity = hotel.city.toLowerCase();
+    const searchedHotels = hotels.filter((hotel) => {
+      const hotelCity = hotel.hotel_city.toLowerCase();
       const searchText = searchData.destination.toLowerCase();
       return hotelCity.includes(searchText);
     }).filter((hotel) => {
       if (selectedRating) {
-        const roundedRating=Math.floor(hotel.star_rating)
+        const roundedRating=Math.floor(hotel.hotel_rating)
         return roundedRating >= selectedRating;
       }
       return true;

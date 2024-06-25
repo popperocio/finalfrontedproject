@@ -13,8 +13,8 @@ test('renders card component with correct information', () => {
   const hotel= {
     hotelid_ppn: 1,
     hotel_name: 'Hotel 1',
-    star_rating: 4,
-    thumbnail: 'hotel1.jpg',
+    hotel_rating: 4,
+    hotel_image: 'hotel1.jpg',
     hotel_address: '123 Main St'
   }
   const { getByTestId } = render(

@@ -95,8 +95,8 @@ export const HotelDetails = ({hotel}) => {
     <div className='HotelDetails'>
         <h2>Hotel Details</h2>
         <h3 className='HotelName'>{hotel.hotel_name}</h3>
-        <img src={hotel.thumbnail} alt="hotel photo"/>
-        <h3>{hotel.hotel_address}, {hotel.city}, {hotel.country}</h3>
+        <img src={hotel.hotel_image} alt="hotel photo"/>
+        <h3>{hotel.hotel_address}, {hotel.hotel_city}, {hotel.hotel_country}</h3>
         {renderDataToComplete()}
         <h3>Price: {price} </h3>
     </div>

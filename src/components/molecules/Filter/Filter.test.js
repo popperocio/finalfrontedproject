@@ -12,7 +12,7 @@ describe('Filter component', () => {
         setSelectedRating: jest.fn(),
         hotels: [{
             "hotel_name": "Hotel Asterisk a family run hotel",
-            "star_rating": "1",
+            "hotel_rating": "1",
             "amenities": ['WiFi'],
           }]
       };
