@@ -6,7 +6,7 @@ import { HotelDetails } from './index';
 
 const hotel = {
   hotel_name: 'Sample Hotel',
-  thumbnail: 'sample.jpg',
+  hotel_image: 'sample.jpg',
   hotel_address: '123 Sample St',
   city: 'Sample City',
   country: 'Sample Country',

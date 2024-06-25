@@ -16,11 +16,11 @@ function Card ({ hotel_id, hotel  }) {
     return (
         <div className='CardContainer' data-testid="card">
             <div className='HotelImageContainer'>
-                <img src={hotel.thumbnail} alt="hotel image" data-testid="cardImage" />
+                <img src={hotel.hotel_image} alt="hotel image" data-testid="cardImage" />
             </div>
             <div className='HotelCardDetails'>
                 <h2 data-testid="hotelName">{ hotel.hotel_name }</h2> 
-                <RatingStars  className="Rating" stars={hotel.star_rating}/>
+                <RatingStars  className="Rating" stars={hotel.hotel_rating}/>
                 <h3 data-testid="address"> {hotel.address }</h3> 
                 <h3 className='Price'>${ hotel.price }</h3>
                 <BookButton className="BookButton" handleBook={handleBook}/>
