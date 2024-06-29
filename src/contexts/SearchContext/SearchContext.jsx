@@ -11,7 +11,9 @@ function SearchProvider({ children }) {
         fromDate: '',
         toDate: '',
         travellers: 1,
-        rooms: 1
+        rooms: 1,
+        price: 0,
+        nights: 0,
     });
     const [hotels, setHotels] = useState([]);
     const [searchPerformed, setSearchPerformed] = useState(false);
@@ -51,10 +53,7 @@ function SearchProvider({ children }) {
       const fetchData = async () => {
         try {
           const hotelList = await getData();
-          console.log("hotel list",hotelList)
-          
           setHotels(hotelList);
-          // setHotels(hotelList);
           setIsLoading(false);
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -66,6 +65,20 @@ function SearchProvider({ children }) {
 
     const updateSearchData = (data) => {
         setSearchData({ ...searchData, ...data });
+    };
+
+    const updatePrice = (price) => {
+      setSearchData((prevData) => ({
+        ...prevData,
+        price: price
+      }));
+    };
+
+    const updateNights = (nights) => {
+      setSearchData((prevData) => ({
+        ...prevData,
+        nights: nights
+      }));
     };
 
     const searchedHotels = hotels.filter((hotel) => {
@@ -104,7 +117,9 @@ function SearchProvider({ children }) {
               isBooking,
               setIsBooking,
               selectedHotel, 
-              setSelectedHotel
+              setSelectedHotel,
+              updatePrice,
+              updateNights
             }}
         >
           {children}

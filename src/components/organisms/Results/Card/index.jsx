@@ -22,7 +22,7 @@ function Card ({ hotel_id, hotel  }) {
                 <h2 data-testid="hotelName">{ hotel.hotel_name }</h2> 
                 <RatingStars  className="Rating" stars={hotel.hotel_rating}/>
                 <h3 data-testid="address"> {hotel.address }</h3> 
-                <h3 className='Price'>${ hotel.price }</h3>
+                <h3 className='Price'>${ hotel.hotel_price }</h3>
                 <BookButton className="BookButton" handleBook={handleBook}/>
             </div>
         </div>

@@ -10,7 +10,7 @@ const hotel = {
   hotel_address: '123 Sample St',
   city: 'Sample City',
   country: 'Sample Country',
-  price:100
+  hotel_price:100
 };
 const searchData = {
   fromDate: '2024-04-18',
@@ -22,7 +22,7 @@ const searchData = {
 const mockSearchContext = {
   useEffect: jest.fn(),
   searchData: {searchData},
-  setPrice: jest.fn()
+  setHotelPrice: jest.fn()
 };
 
 describe('HotelDetails component', () => {

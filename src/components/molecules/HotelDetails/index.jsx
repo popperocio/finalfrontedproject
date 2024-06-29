@@ -7,32 +7,34 @@ import ButtonGroups from '../ButtonGroup';
 
 export const HotelDetails = ({hotel}) => {
 
-  const { searchData } = useContext(SearchContext);
+  const { searchData, updatePrice, updateNights } = useContext(SearchContext);
   const [ fromDate, setFromDate ] = useState(null);
   const [ toDate, setToDate ] = useState(null);
-  const [ price, setPrice ] = useState(0);
+  const [ hotelPrice, setHotelPrice ] = useState(0);
   const [ travellers, setTravellers ] = useState(1);
   const [ rooms, setRooms ] = useState(1);
   const currentDate = dayjs();
 
   useEffect(() => {
-    if ((searchData.fromDate && searchData.toDate) || (fromDate && toDate)) {
-      const fromDateString = (searchData.fromDate || fromDate);
-      const toDateString = (searchData.toDate || toDate);
+    const fromDateString = fromDate || searchData.fromDate;
+    const toDateString = toDate || searchData.toDate;
+
+    if (fromDateString && toDateString) {
       const fromDateObj = new Date(fromDateString);
       const toDateObj = new Date(toDateString);
-      const toDateDayjs = dayjs(toDateObj);
-      const fromDateDayjs = dayjs(fromDateObj);
-      const nights = toDateDayjs.diff(fromDateDayjs, 'day');
-      if (fromDateDayjs <= toDateDayjs){
-        const totalPrice = nights * hotel.price; 
-        setPrice(totalPrice);
-      }else{
-        setPrice(0)
+      const nights = dayjs(toDateObj).diff(dayjs(fromDateObj), 'day');
+
+      if (nights >= 0) {
+        updateNights(nights);
+        const totalHotelPrice = nights * hotel.hotel_price;
+        setHotelPrice(totalHotelPrice);
+        updatePrice(totalHotelPrice);
+      } else {
+        setHotelPrice(0);
       }
     }
-  }, [searchData.fromDate, searchData.toDate, fromDate, toDate]);
-   
+  }, [searchData.fromDate, searchData.toDate, fromDate, toDate, hotelPrice]);
+
   const handleFromDateChange = (date) => {
     setFromDate(date);
   };
@@ -42,6 +44,20 @@ export const HotelDetails = ({hotel}) => {
   };
 
   const renderDataToComplete = () => {
+    const fromDateString = fromDate || searchData.fromDate;
+    const toDateString = toDate || searchData.toDate;
+
+    let calculatedPrice = 0;
+    if (fromDateString && toDateString) {
+      const fromDateObj = new Date(fromDateString);
+      const toDateObj = new Date(toDateString);
+      const nights = dayjs(toDateObj).diff(dayjs(fromDateObj), 'day');
+
+      if (nights >= 0) {
+        calculatedPrice = nights * hotel.hotel_price;
+      }
+    }
+
     if (searchData.fromDate && searchData.toDate) {
       return (
         <>
@@ -49,6 +65,7 @@ export const HotelDetails = ({hotel}) => {
           <h3>Check out: {searchData.toDate}</h3>
           <h3>Travellers: { searchData.travellers}</h3>
           <h3>Rooms: {searchData.rooms}</h3>
+          <h3>Price: {hotelPrice}</h3>
         </>
       );
     } else {
@@ -79,6 +96,9 @@ export const HotelDetails = ({hotel}) => {
               onQuantityChange={handleRoomsQuantityChange}
             />
           </div>
+          <div>
+            <h3>Price: {calculatedPrice}</h3>
+          </div>
         </div>
       );
     }
@@ -91,6 +111,7 @@ export const HotelDetails = ({hotel}) => {
   const handleRoomsQuantityChange = (roomsQuantity) => {
     setRooms(roomsQuantity);  
   }
+
   return (
     <div className='HotelDetails'>
         <h2>Hotel Details</h2>
@@ -98,7 +119,6 @@ export const HotelDetails = ({hotel}) => {
         <img src={hotel.hotel_image} alt="hotel photo"/>
         <h3>{hotel.hotel_address}, {hotel.hotel_city}, {hotel.hotel_country}</h3>
         {renderDataToComplete()}
-        <h3>Price: {price} </h3>
     </div>
   )
 }
