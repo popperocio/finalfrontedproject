@@ -72,19 +72,6 @@ function SearchProvider({ children }) {
         setSearchData({ ...searchData, ...data });
     };
 
-    const updatePrice = (price) => {
-      setSearchData((prevData) => ({
-        ...prevData,
-        price: price
-      }));
-    };
-
-    const updateNights = (nights) => {
-      setSearchData((prevData) => ({
-        ...prevData,
-        nights: nights
-      }));
-    };
 
     const updateFormData = (data) => {
       setFormData(prev => ({ ...prev, ...data }));
@@ -127,8 +114,6 @@ function SearchProvider({ children }) {
               setIsBooking,
               selectedHotel, 
               setSelectedHotel,
-              updatePrice,
-              updateNights,
               formData,
               updateFormData
             }}

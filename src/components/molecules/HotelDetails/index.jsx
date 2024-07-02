@@ -7,7 +7,7 @@ import ButtonGroups from '../ButtonGroup';
 
 export const HotelDetails = ({hotel}) => {
 
-  const { searchData, updatePrice, updateNights, updateSearchData } = useContext(SearchContext);
+  const { searchData,updateSearchData } = useContext(SearchContext);
   const [ fromDate, setFromDate ] = useState(null);
   const [ toDate, setToDate ] = useState(null);
   const [ hotelPrice, setHotelPrice ] = useState(0);
@@ -23,12 +23,10 @@ export const HotelDetails = ({hotel}) => {
       const nights = dayjs(toDateObj).diff(dayjs(fromDateObj), 'day');
 
       if (nights >= 0) {
-        updateNights(nights);
-        updateSearchData({ nights });
+        updateSearchData({ nights:nights });
         const totalHotelPrice = nights * hotel.hotel_price;
         setHotelPrice(totalHotelPrice);
         updateSearchData({ price: totalHotelPrice });
-        updatePrice(totalHotelPrice);
       } else {
         setHotelPrice(0);
       }

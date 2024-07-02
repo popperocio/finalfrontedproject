@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './BookingReservation.css'
@@ -171,13 +172,13 @@ const BookingReservation = ({hotel}) => {
                             className='EmailVoucher'
                        />
                     </div>
-                    <FormControlLabel
-                        control={<Checkbox checked={checked} onChange={handleChange}/>}
-                        label="I accept the purchase conditions, privacy policies change and cancellation policies."
-                        onChange={(e) => updateFormData({ ...formData, checked: e.target.value })}
-                        error={errors.checked}
-                        required
-                    />
+                    <FormControl error={errors.checked} component="fieldset">
+                        <FormControlLabel
+                            control={<Checkbox checked={checked} onChange={handleChange} />}
+                            label="I accept the purchase conditions, privacy policies change and cancellation policies."
+                        />
+                        {errors.checked && <p style={{ color: 'red' }}>You must accept the terms and conditions</p>}
+                    </FormControl>
                     <div className='Buttons'>
                         <Button 
                                 variant="outlined" 
