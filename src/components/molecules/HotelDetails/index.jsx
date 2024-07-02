@@ -7,12 +7,10 @@ import ButtonGroups from '../ButtonGroup';
 
 export const HotelDetails = ({hotel}) => {
 
-  const { searchData, updatePrice, updateNights } = useContext(SearchContext);
+  const { searchData, updatePrice, updateNights, updateSearchData } = useContext(SearchContext);
   const [ fromDate, setFromDate ] = useState(null);
   const [ toDate, setToDate ] = useState(null);
   const [ hotelPrice, setHotelPrice ] = useState(0);
-  const [ travellers, setTravellers ] = useState(1);
-  const [ rooms, setRooms ] = useState(1);
   const currentDate = dayjs();
 
   useEffect(() => {
@@ -26,8 +24,10 @@ export const HotelDetails = ({hotel}) => {
 
       if (nights >= 0) {
         updateNights(nights);
+        updateSearchData({ nights });
         const totalHotelPrice = nights * hotel.hotel_price;
         setHotelPrice(totalHotelPrice);
+        updateSearchData({ price: totalHotelPrice });
         updatePrice(totalHotelPrice);
       } else {
         setHotelPrice(0);
@@ -36,11 +36,17 @@ export const HotelDetails = ({hotel}) => {
   }, [searchData.fromDate, searchData.toDate, fromDate, toDate, hotelPrice]);
 
   const handleFromDateChange = (date) => {
+    updateSearchData({ fromDate: date });
     setFromDate(date);
   };
 
   const handleToDateChange = (date) => {
+    updateSearchData({ toDate: date });
     setToDate(date);
+  };
+
+  const formatDateString = (date) => {
+    return dayjs(date).format('ddd, DD MMM YYYY');
   };
 
   const renderDataToComplete = () => {
@@ -58,11 +64,11 @@ export const HotelDetails = ({hotel}) => {
       }
     }
 
-    if (searchData.fromDate && searchData.toDate) {
+    if(searchData.fromDate && searchData.toDate && searchData.travellers && searchData.rooms){
       return (
         <>
-          <h3>Check in: {searchData.fromDate}</h3>
-          <h3>Check out: {searchData.toDate}</h3>
+          <h3>Check in: {formatDateString(searchData.fromDate)}</h3>
+          <h3>Check out: {formatDateString(searchData.toDate)}</h3>
           <h3>Travellers: { searchData.travellers}</h3>
           <h3>Rooms: {searchData.rooms}</h3>
           <h3>Price: {hotelPrice}</h3>
@@ -105,11 +111,11 @@ export const HotelDetails = ({hotel}) => {
   };
 
   const handleTravellersQuantityChange = (travellersQuantity) => {
-    setTravellers(travellersQuantity);
+    updateSearchData({ travellers: travellersQuantity });
   }
 
   const handleRoomsQuantityChange = (roomsQuantity) => {
-    setRooms(roomsQuantity);  
+    updateSearchData({ rooms: roomsQuantity });
   }
 
   return (

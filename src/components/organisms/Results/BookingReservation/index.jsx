@@ -11,15 +11,8 @@ import ConfirmationModal from '../../../atoms/ConfirmationModal';
 import { SearchContext } from '../../../../contexts/SearchContext/SearchContext';
 
 const BookingReservation = ({hotel}) => {
-    const { setIsBooking, selectedHotel, searchData } = useContext(SearchContext);
+    const { setIsBooking, selectedHotel, searchData, formData, updateFormData} = useContext(SearchContext);
     const [checked, setChecked] = useState(false);
-    const [formData, setFormData] = useState({
-        guestName: '',
-        passportNumber: '',
-        email: '',
-        confirmEmail: '',
-        checked: '',
-      });
     const [errors, setErrors] = useState({
         guestName: false,
         passportNumber: false,
@@ -36,10 +29,7 @@ const BookingReservation = ({hotel}) => {
     const handleChange = (event) => {
         setChecked(event.target.checked);
         setErrors(errors.checked);
-        setFormData({
-            ...formData,
-            checked: event.target.checked,
-        });
+        updateFormData({ checked: event.target.checked });
     };
 
     const handleSubmit = () => {
@@ -110,6 +100,7 @@ const BookingReservation = ({hotel}) => {
             headers: {
                 'Content-Type': 'application/json'
             },
+            mode: 'cors',
             body: JSON.stringify(information.fullData)
         }).then(response => response.json())
             .then(data => {
@@ -140,7 +131,7 @@ const BookingReservation = ({hotel}) => {
                                 id="outlined-required"
                                 label="Guest Name"
                                 error={errors.guestName}
-                                onChange={(e) => setFormData({ ...formData, guestName: e.target.value })}
+                                onChange={(e) => updateFormData({ ...formData, guestName: e.target.value })}
                                 helperText={errors.guestName ? 'Your name and surname cannot be empty' : ''}
                             />
                         </div>
@@ -150,7 +141,7 @@ const BookingReservation = ({hotel}) => {
                             id="outlined-required" 
                             label="Passport Number"
                             error={errors.passportNumber}
-                            onChange={(e) => setFormData({ ...formData, passportNumber: e.target.value })}
+                            onChange={(e) => updateFormData({ ...formData, passportNumber: e.target.value })}
                             helperText={errors.passportNumber ? "Your passport number cannot be empty": ""}
                             className='Passport'
                         />
@@ -163,7 +154,7 @@ const BookingReservation = ({hotel}) => {
                             id="outlined-required" 
                             label="Email"
                             error={errors.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            onChange={(e) => updateFormData({ ...formData, email: e.target.value })}
                             helperText={errors.email ? "Invalid email": ""}
                             type="email"
                             className='EmailVoucher'
@@ -175,7 +166,7 @@ const BookingReservation = ({hotel}) => {
                             label="Confirm your email" 
                             type="email"
                             error={errors.confirmEmail}
-                            onChange={(e) => setFormData({ ...formData, confirmEmail: e.target.value })}
+                            onChange={(e) => updateFormData({ ...formData, confirmEmail: e.target.value })}
                             helperText={errors.confirmEmail ? "Your email should be the same as the one entered above" : ""}
                             className='EmailVoucher'
                        />
@@ -183,7 +174,7 @@ const BookingReservation = ({hotel}) => {
                     <FormControlLabel
                         control={<Checkbox checked={checked} onChange={handleChange}/>}
                         label="I accept the purchase conditions, privacy policies change and cancellation policies."
-                        onChange={(e) => setFormData({ ...formData, checked: e.target.value })}
+                        onChange={(e) => updateFormData({ ...formData, checked: e.target.value })}
                         error={errors.checked}
                         required
                     />

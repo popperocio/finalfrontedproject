@@ -1,8 +1,6 @@
 import { useState, createContext, useEffect } from "react";
 import PropTypes from "prop-types"; 
 
-const KEY= import.meta.env.VITE_XRAPIDAPIKEY;
-
 const SearchContext = createContext();
 
 function SearchProvider({ children }) {
@@ -10,8 +8,8 @@ function SearchProvider({ children }) {
         destination: '',
         fromDate: '',
         toDate: '',
-        travellers: 1,
-        rooms: 1,
+        travellers: 0,
+        rooms: 0,
         price: 0,
         nights: 0,
     });
@@ -22,6 +20,13 @@ function SearchProvider({ children }) {
     const [selectedAmenities, setSelectedAmenities] = useState([]);
     const [isBooking, setIsBooking] = useState(false);
     const [selectedHotel, setSelectedHotel] = useState(null);
+    const [formData, setFormData] = useState({
+      guestName: '',
+      passportNumber: '',
+      email: '',
+      confirmEmail: '',
+      checked: false,
+    });
 
     const amenity_mapping = {
       "17": "WiFi",
@@ -81,6 +86,10 @@ function SearchProvider({ children }) {
       }));
     };
 
+    const updateFormData = (data) => {
+      setFormData(prev => ({ ...prev, ...data }));
+    };
+
     const searchedHotels = hotels.filter((hotel) => {
       const hotelCity = hotel.hotel_city.toLowerCase();
       const searchText = searchData.destination.toLowerCase();
@@ -119,7 +128,9 @@ function SearchProvider({ children }) {
               selectedHotel, 
               setSelectedHotel,
               updatePrice,
-              updateNights
+              updateNights,
+              formData,
+              updateFormData
             }}
         >
           {children}
