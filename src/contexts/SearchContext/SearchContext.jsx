@@ -1,8 +1,6 @@
 import { useState, createContext, useEffect } from "react";
 import PropTypes from "prop-types"; 
 
-const KEY= import.meta.env.VITE_XRAPIDAPIKEY;
-
 const SearchContext = createContext();
 
 function SearchProvider({ children }) {
@@ -10,8 +8,10 @@ function SearchProvider({ children }) {
         destination: '',
         fromDate: '',
         toDate: '',
-        travellers: 1,
-        rooms: 1
+        travellers: 0,
+        rooms: 0,
+        price: 0,
+        nights: 0,
     });
     const [hotels, setHotels] = useState([]);
     const [searchPerformed, setSearchPerformed] = useState(false);
@@ -20,6 +20,13 @@ function SearchProvider({ children }) {
     const [selectedAmenities, setSelectedAmenities] = useState([]);
     const [isBooking, setIsBooking] = useState(false);
     const [selectedHotel, setSelectedHotel] = useState(null);
+    const [formData, setFormData] = useState({
+      guestName: '',
+      passportNumber: '',
+      email: '',
+      confirmEmail: '',
+      checked: false,
+    });
 
     const amenity_mapping = {
       "17": "WiFi",
@@ -51,10 +58,7 @@ function SearchProvider({ children }) {
       const fetchData = async () => {
         try {
           const hotelList = await getData();
-          console.log("hotel list",hotelList)
-          
           setHotels(hotelList);
-          // setHotels(hotelList);
           setIsLoading(false);
         } catch (error) {
           console.error("Error fetching data:", error);
@@ -66,6 +70,11 @@ function SearchProvider({ children }) {
 
     const updateSearchData = (data) => {
         setSearchData({ ...searchData, ...data });
+    };
+
+
+    const updateFormData = (data) => {
+      setFormData(prev => ({ ...prev, ...data }));
     };
 
     const searchedHotels = hotels.filter((hotel) => {
@@ -104,7 +113,9 @@ function SearchProvider({ children }) {
               isBooking,
               setIsBooking,
               selectedHotel, 
-              setSelectedHotel
+              setSelectedHotel,
+              formData,
+              updateFormData
             }}
         >
           {children}

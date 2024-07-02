@@ -10,24 +10,28 @@ const hotel = {
   hotel_address: '123 Sample St',
   city: 'Sample City',
   country: 'Sample Country',
-  price:100
+  hotel_price:100
 };
 const searchData = {
+  destination: 'amsterdam',
   fromDate: '2024-04-18',
-  toDate: '2024-04-20',
-  travellers: 2,
+  toDate:  '2024-04-20',
+  travellers: 1,
   rooms: 1,
+  price: 200,
+  nights: 1,
 };
 
 const mockSearchContext = {
   useEffect: jest.fn(),
-  searchData: {searchData},
-  setPrice: jest.fn()
+  searchData: searchData,
+  setHotelPrice: jest.fn(),
+  updateSearchData: jest.fn(),
 };
 
 describe('HotelDetails component', () => {
   test('renders HotelDetails with context', () => {
-    const contextValue = { searchData };
+    const contextValue = mockSearchContext;
 
     const { getByText } = render(
       <SearchContext.Provider value={contextValue}>
@@ -35,9 +39,9 @@ describe('HotelDetails component', () => {
       </SearchContext.Provider>
     );
 
-    expect(getByText('Check in: 2024-04-18')).toBeInTheDocument();
-    expect(getByText('Check out: 2024-04-20')).toBeInTheDocument();
-    expect(getByText('Travellers: 2')).toBeInTheDocument();
+    expect(getByText('Check in: Thu, 18 Apr 2024')).toBeInTheDocument();
+    expect(getByText('Check out: Sat, 20 Apr 2024')).toBeInTheDocument();
+    expect(getByText('Travellers: 1')).toBeInTheDocument();
     expect(getByText('Rooms: 1')).toBeInTheDocument();
     expect(getByText('Price: 200')).toBeInTheDocument();
   });

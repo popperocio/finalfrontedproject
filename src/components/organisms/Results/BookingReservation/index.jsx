@@ -1,8 +1,9 @@
-import React,  { useContext, useState} from 'react'
+import React,  { useContext, useState, useEffect} from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './BookingReservation.css'
@@ -11,40 +12,30 @@ import ConfirmationModal from '../../../atoms/ConfirmationModal';
 import { SearchContext } from '../../../../contexts/SearchContext/SearchContext';
 
 const BookingReservation = ({hotel}) => {
-  
+    const { setIsBooking, selectedHotel, searchData, formData, updateFormData} = useContext(SearchContext);
     const [checked, setChecked] = useState(false);
-    const [formData, setFormData] = useState({
-        name: '',
-        surname: '',
-        passportNumber: '',
-        email: '',
-        confirmEmail: '',
-        checked: ''
-      });
     const [errors, setErrors] = useState({
-        name: false,
-        surname: false,
+        guestName: false,
         passportNumber: false,
         email: false,
+        checked: false,
         confirmEmail: false,
-        checked: '',
+        checkinDate: false,
+        checkoutDate: false,
+        numberOfGuests:false
       });
     const [openModal, setOpenModal] = useState(false);
-    const { setIsBooking } = useContext(SearchContext);
 
+    
     const handleChange = (event) => {
         setChecked(event.target.checked);
         setErrors(errors.checked);
-        setFormData({
-            ...formData,
-            checked: event.target.checked,
-        });
+        updateFormData({ checked: event.target.checked });
     };
 
     const handleSubmit = () => {
         let formIsValid = true;
         const newErrors = { ...errors };
-
         Object.keys(formData).forEach((key) => {
             if (!formData[key]) {
                 formIsValid = false;
@@ -78,6 +69,20 @@ const BookingReservation = ({hotel}) => {
         setErrors(newErrors);
 
         if (formIsValid) {
+            const fullData = {
+                hotel_id: selectedHotel.hotel_id,
+                user_id: formData.passportNumber,
+                room_id: 1,
+                guest_name: formData.guestName,
+                nights: searchData.nights,
+                checkin_date:searchData.fromDate,
+                checkout_date: searchData.toDate,
+                number_of_guests:searchData.travellers,
+                price: searchData.price,
+                email: formData.email,
+            };
+            
+            saveData({ fullData }); 
             setOpenModal(true);
         }
     };
@@ -89,6 +94,25 @@ const BookingReservation = ({hotel}) => {
     const handleGoBack = () =>{
         setIsBooking(false);
     }
+
+    const saveData = (information) =>{
+        fetch('http://127.0.0.1:8000/reservation/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            mode: 'cors',
+            body: JSON.stringify(information.fullData)
+        }).then(response => response.json())
+            .then(data => {
+                console.log('Data successfully sent to the backend', data);
+                setOpenModal(true);
+            })
+            .catch(error => {
+                console.error('Error sending data to the backend', error);
+            });
+    }
+
 
     return (
         <div className="BookingReservation"> 
@@ -102,23 +126,14 @@ const BookingReservation = ({hotel}) => {
                     <div className='OwnerOfReservationData'>
                         <p>Who is the owner of the reservation?</p>
                         <div className="NameAndSurname">
-                            <TextField 
-                                sx={{ margin: '10px', width:'100%'}} 
-                                required 
-                                id="outlined-required" 
-                                label="Name" 
-                                error={errors.name}
-                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                helperText={errors.name ? "Your name cannot be empty": ""}
-                            />
-                            <TextField 
-                                sx={{ margin: '10px', width:'100%'}} 
-                                required 
-                                id="outlined-required" 
-                                label="Surname"
-                                error={errors.surname} 
-                                onChange={(e) => setFormData({ ...formData, surname: e.target.value })}
-                                helperText={errors.surname ? "Your surname cannot be empty": ""}
+                            <TextField
+                                sx={{ margin: '10px', width: '100%' }}
+                                required
+                                id="outlined-required"
+                                label="Guest Name"
+                                error={errors.guestName}
+                                onChange={(e) => updateFormData({ ...formData, guestName: e.target.value })}
+                                helperText={errors.guestName ? 'Your name and surname cannot be empty' : ''}
                             />
                         </div>
                         <TextField 
@@ -127,7 +142,7 @@ const BookingReservation = ({hotel}) => {
                             id="outlined-required" 
                             label="Passport Number"
                             error={errors.passportNumber}
-                            onChange={(e) => setFormData({ ...formData, passportNumber: e.target.value })}
+                            onChange={(e) => updateFormData({ ...formData, passportNumber: e.target.value })}
                             helperText={errors.passportNumber ? "Your passport number cannot be empty": ""}
                             className='Passport'
                         />
@@ -140,7 +155,7 @@ const BookingReservation = ({hotel}) => {
                             id="outlined-required" 
                             label="Email"
                             error={errors.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            onChange={(e) => updateFormData({ ...formData, email: e.target.value })}
                             helperText={errors.email ? "Invalid email": ""}
                             type="email"
                             className='EmailVoucher'
@@ -152,18 +167,18 @@ const BookingReservation = ({hotel}) => {
                             label="Confirm your email" 
                             type="email"
                             error={errors.confirmEmail}
-                            onChange={(e) => setFormData({ ...formData, confirmEmail: e.target.value })}
+                            onChange={(e) => updateFormData({ ...formData, confirmEmail: e.target.value })}
                             helperText={errors.confirmEmail ? "Your email should be the same as the one entered above" : ""}
                             className='EmailVoucher'
                        />
                     </div>
-                    <FormControlLabel
-                        control={<Checkbox checked={checked} onChange={handleChange}/>}
-                        label="I accept the purchase conditions, privacy policies change and cancellation policies."
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        error={errors.checked.toString()}
-                        required
-                    />
+                    <FormControl error={errors.checked} component="fieldset">
+                        <FormControlLabel
+                            control={<Checkbox checked={checked} onChange={handleChange} />}
+                            label="I accept the purchase conditions, privacy policies change and cancellation policies."
+                        />
+                        {errors.checked && <p style={{ color: 'red' }}>You must accept the terms and conditions</p>}
+                    </FormControl>
                     <div className='Buttons'>
                         <Button 
                                 variant="outlined" 
