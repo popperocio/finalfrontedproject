@@ -1,51 +1,18 @@
-version: '3.8'
-
 services:
-  localstack-frontend:
-    image: localstack/localstack
-    container_name: localstack-frontend
-    ports:
-      - "4577:4566"
-    environment:
-      - SERVICES=s3,apigateway
-      - DEBUG=1
-      - EDGE_PORT=4577
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./scripts:/docker-entrypoint-initaws.d
-    networks:
-      - my-network
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
-
-  terraform:
-    build:
-      context: .
-      dockerfile: Dockerfile.terraform
-    volumes:
-      - ./infrastructure:/app
-    working_dir: /app
-    environment:
-      - AWS_ACCESS_KEY_ID=test
-      - AWS_SECRET_ACCESS_KEY=test
-      - AWS_DEFAULT_REGION=us-east-1
-    depends_on:
-      - localstack-frontend
-    networks:
-      - my-network
-
-  react-app:
+  frontend:
     build:
       context: .
       dockerfile: Dockerfile
-    depends_on:
-      - localstack-frontend
-    networks:
-      - my-network
+    container_name: frontend-app
     ports:
       - "3000:3000"
-
+    environment:
+      - BACKEND_URL="http://localhost:8080"
+    networks:
+      - my-network
+    volumes:
+      - .:/app
+      - /app/node_modules
+    
 networks:
   my-network:
-    driver: bridge
