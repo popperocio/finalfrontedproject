@@ -40,7 +40,7 @@ function SearchProvider({ children }) {
   
     const getData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/hotels");
+        const response = await fetch("http://localhost:8080/hotels");
         const hotelList = await response.json();
         const flattenedHotels = hotelList.reduce((acc, val) => acc.concat(val), []);
         const hotelsWithExtraInformation = flattenedHotels.map(hotel => ({
