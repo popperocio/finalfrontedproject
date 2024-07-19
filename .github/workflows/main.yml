@@ -1,4 +1,4 @@
-name: CI/CD for React
+name: CI/CD for React with Docker Compose
 
 on:
   push:
@@ -8,20 +8,35 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:19.03.12
+        options: --privileged
+        ports:
+          - 127.0.0.1:3000:3000
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Install Node
-        uses: actions/setup-node@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Cache Docker layers
+        uses: actions/cache@v2
         with:
-          node-version: 18.x
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Build and Test with Docker Compose
+        run: docker-compose -f docker-compose.yml up --build --exit-code-from app
 
-      - name: Build Project
-        run: npm run build
+      - name: Copy Build Artifacts
+        run: docker cp $(docker-compose ps -q app):/app/build ./build
 
       - name: Upload artifact to enable deployment
         uses: actions/upload-artifact@v3
@@ -32,6 +47,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v3
