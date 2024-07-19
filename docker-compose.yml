@@ -6,8 +6,8 @@ services:
     container_name: frontend-app
     ports:
       - "3000:3000"
-    environment:
-      - BACKEND_URL="http://localhost:8080"
+    env_file:
+      -  .env
     networks:
       - my-network
     volumes:
