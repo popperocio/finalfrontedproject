@@ -18,4 +18,12 @@ describe('ConfirmationModal', () => {
     fireEvent.click(closeButton);
     expect(onCloseMock).toHaveBeenCalled();
   });
+  
+  test('renders nothing when open is false', () => {
+    const email = 'example@example.com';
+    const { queryByText } = render(<ConfirmationModal email={email} open={false} onClose={() => {}} />);
+    const emailText = queryByText(`We sent your vouchers to ${email}`);
+    expect(emailText).not.toBeInTheDocument();
+  });
+
 });
