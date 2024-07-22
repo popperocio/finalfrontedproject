@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 const SearchContext = createContext();
 
+const APIURL = import.meta.env.VITE_BACKEND_URL;
 function SearchProvider({ children }) {
     const [searchData, setSearchData] = useState({
         destination: '',
@@ -40,7 +41,8 @@ function SearchProvider({ children }) {
   
     const getData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/hotels");
+        const response = await fetch(APIURL + "/hotels");
+        console.log(response)
         const hotelList = await response.json();
         const flattenedHotels = hotelList.reduce((acc, val) => acc.concat(val), []);
         const hotelsWithExtraInformation = flattenedHotels.map(hotel => ({
