@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - adding-cd-execution-for-tests
+      - main
 
 jobs:
   continuous-integration-checks:
