@@ -84,4 +84,70 @@ describe('BookingReservation Component', () => {
       expect(queryByText('Your name and surname cannot be empty')).not.toBeInTheDocument();
     });
   });
+
+  test('shows error for empty fields', async () => {
+    const context = { ...mockSearchContext, formData: { guestName: '', passportNumber: '', email: '', confirmEmail: '', checked: false } };
+    const { getByText } = render(
+        <SearchContext.Provider value={context}>
+            <BookingReservation hotel={hotel} />
+        </SearchContext.Provider>
+    );
+
+    fireEvent.click(getByText('Finish booking'));
+
+    await waitFor(() => {
+        expect(getByText('Your name and surname cannot be empty')).toBeInTheDocument();
+        expect(getByText('Your passport number cannot be empty')).toBeInTheDocument();
+        expect(getByText('Invalid email')).toBeInTheDocument();
+        expect(getByText('Your email should be the same as the one entered above')).toBeInTheDocument();
+        expect(getByText('You must accept the terms and conditions')).toBeInTheDocument();
+    });
+});
+
+test('shows modal on successful submission', async () => {
+    const { getByText } = render(
+        <SearchContext.Provider value={mockSearchContext}>
+            <BookingReservation hotel={hotel} />
+        </SearchContext.Provider>
+    );
+    fireEvent.click(getByText('Finish booking'));
+
+    await waitFor(() => {
+        expect(document.querySelector('.Modal')).toBeInTheDocument();
+    });
+});
+
+test('handles go back button click', () => {
+  const { container } = render(
+    <SearchContext.Provider value={mockSearchContext}>
+        <BookingReservation hotel={hotel} />
+    </SearchContext.Provider>
+  );
+
+  const backButton = container.querySelector('.GoBack');
+
+  fireEvent.click(backButton);
+
+  expect(mockSearchContext.setIsBooking).toHaveBeenCalledWith(false);
+});
+
+test('shows error message when checkbox is not checked and form is submitted', async () => {
+  const context = { ...mockSearchContext, formData: { guestName: '', passportNumber: '', email: '', confirmEmail: '', checked: false } };
+  const {getByRole, getByText}=render(
+      <SearchContext.Provider value={context}>
+          <BookingReservation hotel={hotel} />
+      </SearchContext.Provider>
+  );
+
+  const checkbox = getByRole('checkbox', { name: /I accept the purchase conditions/i });
+  expect(checkbox).not.toBeChecked();
+
+
+  fireEvent.click(getByText('Finish booking'));
+
+  await waitFor(() => {
+      expect(getByText('You must accept the terms and conditions')).toBeInTheDocument();
+  });
+});
+
 });

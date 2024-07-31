@@ -110,6 +110,7 @@ const BookingReservation = ({hotel}) => {
             })
             .catch(error => {
                 console.error('Error sending data to the backend', error);
+                error
             });
     }
 
