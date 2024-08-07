@@ -5,37 +5,39 @@ import '@testing-library/jest-dom'
 
 
 test('renders textfield for destination', () => {
-  const { getByTestId } = render(<Textfield/>);
-  const textfield = getByTestId('texfield');
+  const { container } = render(<Textfield/>);
+  const textfield = container.querySelector('input');
   expect(textfield).toBeInTheDocument();
 });
 
 test('renders textfield without onChange prop', () => {
-  const { getByTestId } = render(<Textfield />);
-  const textfield = getByTestId('texfield');
+  const { container } = render(<Textfield/>);
+  const textfield = container.querySelector('input');
   expect(textfield).toBeInTheDocument();
 });
 
 test('renders textfield with undefined onChange prop', () => {
-  const { getByTestId } = render(<Textfield onChange={undefined} />);
-  const textfield = getByTestId('texfield');
+  const { container } = render(<Textfield onChange={undefined} />);
+  const textfield = container.querySelector('input');
   expect(textfield).toBeInTheDocument();
 });
 
 test('displays error when showError is true', () => {
-  const { getByTestId } = render(<Textfield showError={true} />);
-  const textfield = getByTestId('texfield');
-  expect(textfield).toHaveClass('MuiFormControl-root MuiTextField-root Textfield css-134uato-MuiFormControl-root-MuiTextField-root');
+  const { container } = render(<Textfield showError={true} />);
+  const textfield = container.querySelector('input');
+  expect(textfield).toBeInTheDocument();
+  expect(container.querySelector('.Textfield')).toHaveClass('MuiFormControl-root');
+  expect(container.querySelector('.Textfield')).toHaveClass('MuiTextField-root');
 });
 
 test('handles missing label when showError is true', () => {
-  const { getByTestId } = render(<Textfield showError={true} />);
-  const textfield = getByTestId('texfield');
+  const { container } = render(<Textfield showError={true} />);
+  const textfield = container.querySelector('input');
   expect(textfield).toBeInTheDocument();
 });
 
 test('handles unexpected prop types gracefully', () => {
-  const { getByTestId } = render(<Textfield label={123} defaultLabel={[]}/>);
-  const textfield = getByTestId('texfield');
+  const { container } = render(<Textfield label={123} defaultLabel={[]} />);
+  const textfield = container.querySelector('input');
   expect(textfield).toBeInTheDocument();
 });

@@ -5,20 +5,19 @@ import '@testing-library/jest-dom'
 
 
 test('renders search button', () => {
-  const { getByTestId } = render(<SearchButton/>);
-  const searchbtn = getByTestId('search-btn');
-  expect(searchbtn).toBeInTheDocument();
+  const { getByRole } = render(<SearchButton />);
+  const searchButton = getByRole('button', { name: /search/i }); // Query by role and button text
+  expect(searchButton).toBeInTheDocument();
 });
 
 test('renders search button with undefined onClick prop', () => {
-  const { getByTestId } = render(<SearchButton onClick={undefined} />);
-  const searchbtn = getByTestId('search-btn');
-  expect(searchbtn).toBeInTheDocument();
+  const { getByRole } = render(<SearchButton onClick={undefined} />);
+  const searchButton = getByRole('button', { name: /search/i });
+  expect(searchButton).toBeInTheDocument();
 });
 
 test('does not crash when the button is clicked with no onClick handler', () => {
-  const { getByTestId } = render(<SearchButton />);
-  const searchbtn = getByTestId('search-btn');
-  expect(() => fireEvent.click(searchbtn)).not.toThrow();
+  const { getByRole } = render(<SearchButton />);
+  const searchButton = getByRole('button', { name: /search/i });
+  expect(() => fireEvent.click(searchButton)).not.toThrow();
 });
-

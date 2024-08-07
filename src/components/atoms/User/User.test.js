@@ -5,8 +5,11 @@ import '@testing-library/jest-dom'
 
 
 test('renders user icon', () => {
-  const { getByTestId } = render(<User/>);
-  const userIcon = getByTestId('user-icon');
+  const { container } = render(<User />);
+  
+  const userIcon = container.querySelector('svg');
+  
   expect(userIcon).toBeInTheDocument();
   expect(userIcon).toHaveClass('MuiSvgIcon-root');
+  expect(userIcon).toHaveClass('MuiSvgIcon-fontSizeLarge');
 });

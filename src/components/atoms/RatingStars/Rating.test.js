@@ -5,9 +5,9 @@ import '@testing-library/jest-dom'
 
 
 test('renders rating component', () => {
-  const { getByTestId} = render(<RatingStars stars={4}/>);
- 
-  const component = getByTestId('rating');
+  const { getByRole } = render(<RatingStars stars={4} />);
 
-  expect(component).toBeInTheDocument();
+  const ratingComponent = getByRole('img');
+  
+  expect(ratingComponent).toBeInTheDocument();
 });
