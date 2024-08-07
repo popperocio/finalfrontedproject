@@ -5,8 +5,12 @@ import '@testing-library/jest-dom'
 
 
 test('renders Cart icon', () => {
-  const { getByTestId } = render(<Cart/>);
-  const cartIcon = getByTestId('LocalMallIcon');
+  const { container } = render(<Cart />);
+  
+  const cartIcon = container.querySelector('svg');
+  
   expect(cartIcon).toBeInTheDocument();
   expect(cartIcon).toHaveClass('MuiSvgIcon-root');
+  expect(cartIcon).toHaveStyle('color: white');
 });
+
