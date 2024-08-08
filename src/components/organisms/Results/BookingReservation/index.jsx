@@ -10,9 +10,10 @@ import './BookingReservation.css'
 import { HotelDetails } from '../../../molecules/HotelDetails';
 import ConfirmationModal from '../../../atoms/ConfirmationModal';
 import { SearchContext } from '../../../../contexts/SearchContext/SearchContext';
+import { useApi } from '../../../../hooks/useSaveApi';
 
 const BookingReservation = ({hotel}) => {
-    const { setIsBooking, selectedHotel, searchData, formData, updateFormData} = useContext(SearchContext);
+    const { setIsBooking, selectedHotel, searchData, formData, updateFormData } = useContext(SearchContext);
     const [checked, setChecked] = useState(false);
     const [errors, setErrors] = useState({
         guestName: false,
@@ -23,17 +24,17 @@ const BookingReservation = ({hotel}) => {
         checkinDate: false,
         checkoutDate: false,
         numberOfGuests:false
-      });
+    });
     const [openModal, setOpenModal] = useState(false);
+    const { error, response, fetchData } = useApi('http://localhost:8080/reservation/', 'POST');
 
-    
     const handleChange = (event) => {
         setChecked(event.target.checked);
         setErrors(errors.checked);
         updateFormData({ checked: event.target.checked });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         let formIsValid = true;
         const newErrors = { ...errors };
         Object.keys(formData).forEach((key) => {
@@ -65,7 +66,6 @@ const BookingReservation = ({hotel}) => {
         } else {
             newErrors.checked = false;
         }
-    
         setErrors(newErrors);
 
         if (formIsValid) {
@@ -75,15 +75,20 @@ const BookingReservation = ({hotel}) => {
                 room_id: 1,
                 guest_name: formData.guestName,
                 nights: searchData.nights,
-                checkin_date:searchData.fromDate,
+                checkin_date: searchData.fromDate,
                 checkout_date: searchData.toDate,
-                number_of_guests:searchData.travellers,
+                number_of_guests: searchData.travellers,
                 price: searchData.price,
                 email: formData.email,
             };
-            
-            saveData({ fullData }); 
-            setOpenModal(true);
+
+            await fetchData(fullData);
+            if (response) {
+                console.log('Data successfully sent to the backend', response);
+                setOpenModal(true);
+            }else{
+                console.error('Error sending data to the backend', error);
+            }
         }
     };
 
@@ -93,26 +98,7 @@ const BookingReservation = ({hotel}) => {
 
     const handleGoBack = () =>{
         setIsBooking(false);
-    }
-
-    const saveData = (information) =>{
-        fetch('http://127.0.0.1:8000/reservation/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            mode: 'cors',
-            body: JSON.stringify(information.fullData)
-        }).then(response => response.json())
-            .then(data => {
-                console.log('Data successfully sent to the backend', data);
-                setOpenModal(true);
-            })
-            .catch(error => {
-                console.error('Error sending data to the backend', error);
-            });
-    }
-
+    };
 
     return (
         <div className="BookingReservation"> 
