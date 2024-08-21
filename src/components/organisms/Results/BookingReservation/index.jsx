@@ -9,6 +9,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './BookingReservation.css'
 import { HotelDetails } from '../../../molecules/HotelDetails';
 import ConfirmationModal from '../../../atoms/ConfirmationModal';
+import ErrorModal from '../../../atoms/ErrorModal';
 import { SearchContext } from '../../../../contexts/SearchContext/SearchContext';
 import { useApi } from '../../../../hooks/useSaveApi';
 
@@ -26,6 +27,7 @@ const BookingReservation = ({hotel}) => {
         numberOfGuests:false
     });
     const [openModal, setOpenModal] = useState(false);
+    const [openErrorModal, setOpenErrorModal] = useState(false);
     const { error, response, fetchData } = useApi('http://localhost:8080/reservation/', 'POST');
 
     const handleChange = (event) => {
@@ -82,12 +84,22 @@ const BookingReservation = ({hotel}) => {
                 email: formData.email,
             };
 
-            await fetchData(fullData, setOpenModal);
+            await fetchData(fullData, (response) => {
+                if (response) {
+                    setOpenModal(true);
+                } else {
+                    setOpenErrorModal(true);
+                }
+            });
         }
     };
 
     const handleCloseModal = () => {
         setOpenModal(false); 
+    };
+
+    const handleCloseErrorModal = () => {
+        setOpenErrorModal(false); 
     };
 
     const handleGoBack = () =>{
@@ -182,6 +194,7 @@ const BookingReservation = ({hotel}) => {
                 <HotelDetails hotel={hotel}/>
             </div>
             <ConfirmationModal email={formData.email} open={openModal} onClose={handleCloseModal} />
+            <ErrorModal open={openErrorModal} onClose={handleCloseErrorModal}/>
         </div>
     )
 }

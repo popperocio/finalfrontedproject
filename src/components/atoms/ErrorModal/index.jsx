@@ -1,11 +1,10 @@
-import React,  { useState } from 'react'
+import React from 'react'
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import './ConfirmationModal.css';
+import './ErrorModal.css';
 
-const ConfirmationModal = ({ email, open, onClose }) => {
+const ErrorModal = ({ open, onClose }) => {
   
     return (
         <Modal
@@ -14,20 +13,20 @@ const ConfirmationModal = ({ email, open, onClose }) => {
             aria-describedby="modal-modal-description"
         >
             <Box className="Modal">
-                <Button  
+                <Button 
                     sx={{justifyContent:"flex-end"}} 
                     className="CloseButton" 
                     onClick={onClose}
                 >
                     X
                 </Button>
-                <h2>Congrats!</h2>
-                <h3>We sent your vouchers to {email} </h3>
-            
+                <h2>Sorry!</h2>
+                <h3>We couldn't process the reservation. Please, try again later</h3>
+              
             </Box>
         </Modal>
     )
 }
 
-export default ConfirmationModal
+export default ErrorModal
 
