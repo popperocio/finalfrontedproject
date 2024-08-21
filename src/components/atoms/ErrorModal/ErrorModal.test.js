@@ -6,7 +6,7 @@ import ErrorModal from './index';
 describe('ErrorModal', () => {
   test('renders when there is an error', () => {
     const { getByText } = render(<ErrorModal open={true} onClose={() => {}} />);
-    const text = getByText(`We couldn't process the reservation. Please, try again`);
+    const text = getByText(`We couldn't process the reservation. Please, try again later`);
     expect(text).toBeInTheDocument();
   });
 
@@ -20,7 +20,7 @@ describe('ErrorModal', () => {
   
   test('renders nothing when open is false', () => {
     const { queryByText } = render(<ErrorModal open={false} onClose={() => {}} />);
-    const text = queryByText(`We couldn't process the reservation. Please, try again`);
+    const text = queryByText(`We couldn't process the reservation. Please, try again later`);
     expect(text).not.toBeInTheDocument();
   });
 
