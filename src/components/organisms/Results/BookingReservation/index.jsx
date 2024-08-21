@@ -82,13 +82,7 @@ const BookingReservation = ({hotel}) => {
                 email: formData.email,
             };
 
-            await fetchData(fullData);
-            if (response) {
-                console.log('Data successfully sent to the backend', response);
-                setOpenModal(true);
-            }else{
-                console.error('Error sending data to the backend', error);
-            }
+            await fetchData(fullData, setOpenModal);
         }
     };
 

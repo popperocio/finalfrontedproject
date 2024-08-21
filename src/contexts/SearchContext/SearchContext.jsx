@@ -42,7 +42,6 @@ function SearchProvider({ children }) {
     const getData = async () => {
       try {
         const response = await fetch(APIURL + "/hotels");
-        console.log(response)
         const hotelList = await response.json();
         const flattenedHotels = hotelList.reduce((acc, val) => acc.concat(val), []);
         const hotelsWithExtraInformation = flattenedHotels.map(hotel => ({
@@ -91,7 +90,6 @@ function SearchProvider({ children }) {
       return true;
     }).filter((hotel) => {
       if (selectedAmenities.length > 0) {
-        console.log(hotel)
         return selectedAmenities.every(selectedAmenity => {
             return hotel.amenities.includes(selectedAmenity);
         });

@@ -5,22 +5,32 @@ export const useApi = (endpoint, method) => {
   const [error, setError] = useState(null);
   const [response, setResponse] = useState(null);
 
-  const fetchData = async (data) => {
+  const fetchData = async (data, setOpenModal) => {
     setLoading(true);
     try {
       const response = await fetch(endpoint, {
         method: method,
         headers: {
-            'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         mode: 'cors',
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       });
-      const result = await response.json();
-      setResponse(result);
-      setError(null);
+      if (response.ok) { 
+        const result = await response.json();
+        setResponse(result);
+        setError(null);
+        setOpenModal(true);
+      } else {
+        const errorData = await response.json();
+        console.error('Error sending data to the backend', errorData);
+        setError(errorData);
+        setOpenModal(false);
+      }
     } catch (error) {
+      console.error('Error sending data to the backend', error);
       setError(error);
+      setOpenModal(false);
     } finally {
       setLoading(false);
     }
@@ -28,5 +38,3 @@ export const useApi = (endpoint, method) => {
 
   return { loading, error, response, fetchData };
 };
-
-
